@@ -1,6 +1,5 @@
 package com.mouse.args;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -8,18 +7,17 @@ import org.junit.rules.ExpectedException;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class NumberParserTest {
+public class IntParserTest {
     public @Rule ExpectedException exception = ExpectedException.none();
-    private Parser parser;
-
-    @Before
-    public void setUp() {
-        parser = new NumberParser();
-    }
 
     @Test
     public void should_parse_int() {
-        assertThat(parser.parse("1"), is(1));
+        assertThat(new IntParser().parse("1"), is(1));
+    }
+
+    @Test
+    public void should_return_default_param_correctly() {
+        assertThat(new IntParser().defaultParam(), is(0));
     }
 
     @Test
@@ -27,6 +25,6 @@ public class NumberParserTest {
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("param must be int");
 
-        parser.parse("1a");
+        new IntParser().parse("1a");
     }
 }

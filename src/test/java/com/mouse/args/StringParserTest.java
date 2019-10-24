@@ -12,4 +12,9 @@ public class StringParserTest {
         Parser parser = new StringParser();
         assertThat(parser.parse("abc"), is("abc"));
     }
+
+    @Test
+    public void should_return_default_param_correctly() {
+        assertThat(new StringParser().defaultParam(), is(""));
+    }
 }

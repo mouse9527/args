@@ -1,5 +1,7 @@
 package com.mouse.args;
 
 public interface Parser {
-    Object parse(Object param);
+    Object parse(String param);
+
+    Object defaultParam();
 }

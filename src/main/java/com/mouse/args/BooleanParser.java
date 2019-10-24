@@ -8,8 +8,17 @@ public class BooleanParser implements Parser {
     }
 
     @Override
-    public Object parse(Object param) {
+    public Object parse(String param) {
         String value = (String) stringParser.parse(param);
-        return Boolean.valueOf(value);
+        try {
+            return Boolean.valueOf(value);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("param must be boolean");
+        }
+    }
+
+    @Override
+    public Object defaultParam() {
+        return null;
     }
 }

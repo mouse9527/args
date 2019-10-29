@@ -1,7 +1,8 @@
 package com.mouse.args;
 
-public interface Parser {
-    Object parse(String param);
-
-    Object defaultParam();
+class Parser {
+    Object parse(String value, String type) {
+        if (type.equals("string")) return value;
+        return Integer.valueOf(value);
+    }
 }

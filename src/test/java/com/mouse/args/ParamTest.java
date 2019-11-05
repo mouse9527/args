@@ -64,21 +64,29 @@ public class ParamTest {
 
     @Test
     public void should_parser_for_int_type() {
-        assertEquals(new Param("p 1").parse("int"), 1);
+        assertEquals(new Param("p 1").parse(Parser.INT), 1);
     }
 
     @Test
     public void should_parser_for_string_type() {
-        assertEquals(new Param("d abc").parse("string"), "abc");
+        assertEquals(new Param("d abc").parse(Parser.STRING), "abc");
     }
 
     @Test
     public void should_parser_for_boolean_type() {
-        assertEquals(new Param("l").parse("boolean"), true);
+        assertEquals(new Param("l").parse(Parser.BOOLEAN), true);
     }
 
     @Test
     public void should_parser_for_boolean_type_with_empty_param() {
-        assertEquals(new Param().parse("boolean"), false);
+        assertEquals(new Param().parse(Parser.BOOLEAN), false);
+    }
+
+    @Test
+    public void should_reject_parser_with_other_type() {
+        exception.expect(IllegalStateException.class);
+        exception.expectMessage("Unsupported type");
+
+        new Param("l").parse(new Parser("aaa"));
     }
 }

@@ -51,9 +51,7 @@ class Param {
         return Objects.nonNull(flag);
     }
 
-    Object parse(String type) {
-        if (type.equals("string")) return value();
-        if (type.equals("boolean")) return hasFlag();
-        return Integer.valueOf(value());
+    Object parse(Parser parser) {
+        return parser.parse(this);
     }
 }

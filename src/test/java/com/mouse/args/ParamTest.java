@@ -61,4 +61,24 @@ public class ParamTest {
         Param param = new Param("l");
         param.value();
     }
+
+    @Test
+    public void should_parser_for_int_type() {
+        assertEquals(new Param("p 1").parse("int"), 1);
+    }
+
+    @Test
+    public void should_parser_for_string_type() {
+        assertEquals(new Param("d abc").parse("string"), "abc");
+    }
+
+    @Test
+    public void should_parser_for_boolean_type() {
+        assertEquals(new Param("l").parse("boolean"), true);
+    }
+
+    @Test
+    public void should_parser_for_boolean_type_with_empty_param() {
+        assertEquals(new Param().parse("boolean"), false);
+    }
 }

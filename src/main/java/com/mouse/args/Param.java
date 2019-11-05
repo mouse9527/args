@@ -6,27 +6,48 @@ class Param {
     private final String flag;
     private final String value;
 
+    // FIXME: refactor it
     Param(String param) {
-        this.flag = "";
-        this.value = "";
+        String[] split = param.trim().split(" ");
+        checkParam(param, split);
+        if (split.length == 2) {
+            this.flag = split[0];
+            this.value = split[1];
+        } else {
+            this.flag = split[0];
+            this.value = null;
+        }
     }
 
-    Param(String flag, String value) {
-        this.flag = flag;
-        this.value = value;
+    Param() {
+        this.flag = null;
+        this.value = null;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Param param = (Param) o;
-        return Objects.equals(flag, param.flag) &&
-                Objects.equals(value, param.value);
+    private void checkParam(String param, String[] split) {
+        if (split.length > 2) {
+            throw new IllegalArgumentException(String.format("Illegal parameter [-%s]", param));
+        }
+        if (split.length == 1 && split[0].equals("")) {
+            throw new IllegalArgumentException("param must be not empty");
+        }
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(flag, value);
+    String flag() {
+        if (!hasFlag()) throw new IllegalStateException("Parameter has't flag");
+        return flag;
+    }
+
+    String value() {
+        requireValueNotNull();
+        return value;
+    }
+
+    private void requireValueNotNull() {
+        if (Objects.isNull(value)) throw new IllegalStateException(String.format("Parameter [-%s] has't value", flag));
+    }
+
+    boolean hasFlag() {
+        return Objects.nonNull(flag);
     }
 }
